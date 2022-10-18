@@ -1,0 +1,82 @@
+/* Minimal Reset CSS */
+
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+* {
+  box-sizing: inherit;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+body {
+  background-color: #fafafb;
+  & * {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  }
+}
+
+input,
+textarea {
+  outline: none;
+  background-color: #fafafb;
+  &:hover,
+  &:focus {
+    box-shadow: 0px 1px 3px #828282;
+  }
+}
+ul {
+  list-style: none;
+  padding: none;
+}
+
+a {
+  text-decoration: none;
+  color: #2f80ed;
+}
+
+h1 {
+  display: block;
+  background-image: url("../public/devchallenges.svg");
+  background-position: 0 bottom;
+  background-repeat: no-repeat;
+  text-indent: -9999px;
+  margin: 0;
+  height: 20px;
+}
+
+button {
+  cursor: pointer;
+  padding: 8px 24px;
+  background: #2f80ed;
+  border: 0;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.1s ease-in-out;
+}
+
+@media (min-width: 550px) {
+  .card-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+  }
+}
