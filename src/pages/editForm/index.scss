@@ -1,0 +1,128 @@
+::placeholder {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 18px;
+}
+.edit-form {
+  .back-link,
+  .container {
+    max-width: 846px;
+    margin: auto;
+  }
+  .back-link {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    font-size: 18px;
+    line-height: 25px;
+    color: #2d9cdb;
+    &:before {
+      content: "";
+      display: block;
+      width: 13px;
+      height: 25px;
+      margin-right: 14px;
+      background-image: url("../../assets/left-arrow.svg");
+      background-repeat: no-repeat;
+      background-position: left center;
+      background-size: auto;
+    }
+  }
+  .container {
+    padding: 20px;
+    .edit-header {
+      margin-bottom: 30px;
+      .heading {
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 33px;
+      }
+      .paragraph {
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 18px;
+        color: #828282;
+      }
+    }
+    .wrapper {
+      display: flex;
+      place-items: center;
+      margin-bottom: 40px;
+      .image-wrapper {
+        position: relative;
+        &::before {
+          content: " ";
+          width: 72px;
+          height: 72px;
+          display: block;
+          position: absolute;
+          background-color: rgba(0, 0, 0, 0.2);
+          background-image: url("../../assets/camera.svg");
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 20px 18px;
+          border-radius: 8px;
+          cursor: pointer;
+        }
+        img {
+          border-radius: 8px;
+          margin-right: 20px;
+          width: 72px;
+        }
+      }
+
+      .image-to-change-text {
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 18px;
+        color: #828282;
+        text-transform: uppercase;
+      }
+    }
+    .form {
+      max-width: 417px;
+      &,
+      label {
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 18px;
+        margin-bottom: 30px;
+        input,
+        textarea {
+          margin-top: 3px;
+          border-radius: 8px;
+          padding: 16px;
+          border: 1px solid #828282;
+        }
+        input {
+          height: 50px;
+        }
+        textarea {
+          resize: none;
+          height: 92px;
+        }
+      }
+      .edit-button {
+        padding: 8px 24px;
+        max-width: max-content !important;
+      }
+    }
+  }
+  @media (min-width: 550px) {
+    margin-top: calc(101px - 82px);
+    .back-link {
+      padding-left: 0;
+    }
+    .container {
+      border-radius: 8px;
+      padding: 50px;
+      border: 1px solid #e0e0e0;
+    }
+  }
+}
