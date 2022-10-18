@@ -1,0 +1,122 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 20px;
+  h1 {
+    width: 130px;
+  }
+  .menu {
+    position: relative;
+    max-width: 188px;
+    transform: scale(1);
+    .menu-trigger {
+      display: flex;
+      align-items: center;
+      &::after {
+        content: "";
+        display: none;
+        width: 7.18px;
+        height: 4.59px;
+        padding-left: 19.49px;
+        background-image: url("../../assets/down-arrow.svg");
+        background-position: right center;
+        background-repeat: no-repeat;
+      }
+      &.open-menu::after {
+        transform: rotate(180deg);
+        background-position: left center;
+      }
+      cursor: pointer;
+      .image {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+      }
+      .name {
+        display: none;
+        align-items: center;
+        margin-left: 11px;
+        font-size: 12px;
+        line-height: 16px;
+      }
+    }
+
+    .menu-list {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: calc(32px + 24px);
+      width: 188px;
+      padding: 15px 12px;
+      border: 1px solid #e0e0e0;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+      border-radius: 12px;
+      background-color: #fff;
+      &.open-list {
+        display: block;
+      }
+      button {
+        width: 100%;
+        background-color: #fff;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        color: #4f4f4f;
+        text-align: start;
+        padding: 11.24px 13.4px;
+        border-radius: 8px;
+        margin-bottom: 5px;
+      }
+
+      .list-item {
+        button {
+          display: flex;
+          align-items: center;
+          img {
+            width: 100%;
+            margin-right: 11.67px;
+          }
+        }
+        &:first-of-type button {
+          background-color: #f2f2f2;
+        }
+        &:last-of-type {
+          border-top: 1px solid #e0e0e0;
+          padding-top: calc(24px - 11.38px);
+          padding-bottom: calc(24px - 26.24px);
+          button {
+            color: #eb5757;
+            margin-bottom: 0;
+          }
+        }
+      }
+
+      .logout button img {
+        max-width: 15px;
+      }
+      .group button img {
+        max-width: 18.33px;
+      }
+      .profile button img {
+        max-width: 16.67px;
+        max-height: 16.67px;
+      }
+    }
+  }
+  @media (min-width: 550px) {
+    padding: 24px 72px;
+    .menu {
+      .menu-trigger {
+        &::after {
+          content: "";
+          display: block;
+        }
+
+        .name {
+          display: flex;
+        }
+      }
+    }
+  }
+}
