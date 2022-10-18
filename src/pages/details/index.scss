@@ -1,0 +1,141 @@
+.details {
+  .details-header,
+  .extra-info {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .details-header {
+    text-align: center;
+
+    .heading {
+      font-size: 24px;
+      line-height: 33px;
+      margin-top: 0;
+      margin-bottom: 7px;
+    }
+
+    .paragraph {
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 19px;
+    }
+    margin-top: 0;
+    margin-bottom: 40px;
+  }
+  .extra-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 40px;
+    .edit-button {
+      padding: 7px 32.9px;
+      color: #828282;
+      border: 1px solid #828282;
+      border-radius: 12px;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 22px;
+    }
+    .title {
+      font-size: 24px;
+      line-height: 33px;
+    }
+    .paragraph {
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 18px;
+      color: #828282;
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    img {
+      width: 72px;
+      height: 72px;
+      border-radius: 8px;
+    }
+    tr {
+      &:not(:last-of-type) {
+        border-bottom: 1px solid #e0e0e0;
+      }
+      td {
+        width: 50%;
+        padding: 25px 0;
+        font-weight: 500;
+        &:first-of-type {
+          color: #828282;
+          text-transform: uppercase;
+          font-size: 13px;
+          line-height: 18px;
+          padding-left: 20px;
+          max-width: 30%;
+        }
+        &:last-of-type {
+          font-size: 16px;
+          line-height: 22px;
+          text-align: right;
+          padding-right: 20px;
+        }
+      }
+      .image-wrapper {
+        padding: 8px 20px;
+      }
+    }
+  }
+  @media (min-width: 551px) {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin-top: calc(101px - 91px);
+    .details-header,
+    .extra-info {
+      padding-left: 50px;
+      padding-right: 50px;
+    }
+
+    .details-header {
+      .heading {
+        font-size: 36px;
+        line-height: 49px;
+      }
+      .paragraph {
+        font-size: 18px;
+        line-height: 25px;
+      }
+      margin-bottom: 44px;
+    }
+    & > .wrapper {
+      width: 100%;
+      max-width: 846px;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      margin: 0 auto;
+
+      .extra-info {
+        margin-top: 28.32px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      table {
+        tr {
+          td {
+            &:first-of-type {
+              padding-left: 50px;
+            }
+            &:last-of-type {
+              padding-right: 50px;
+              text-align: left;
+              font-size: 18px;
+              line-height: 25px;
+            }
+          }
+          .image-wrapper {
+            padding-left: 0;
+          }
+        }
+      }
+    }
+  }
+}
