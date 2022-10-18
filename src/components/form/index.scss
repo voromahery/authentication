@@ -1,0 +1,105 @@
+.card {
+  padding: 20px;
+  width: 100%;
+  max-width: 474px;
+  .container {
+    padding: 1.125rem;
+  }
+
+  .intro-wrapper {
+    margin: 30px 0;
+    .intro-heading {
+      margin-bottom: 20px;
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+    .intro-paragraph {
+      font-size: 1rem;
+    }
+  }
+
+  .form-wrapper {
+    text-align: center;
+    form {
+      .input-wrapper {
+        position: relative;
+        margin-bottom: 16px;
+        text-align: center;
+        label {
+          position: absolute;
+          top: 14.5px;
+          left: 18px;
+          color: #828282;
+          &,
+          svg {
+            width: 16px;
+            height: 16px;
+          }
+        }
+
+        input {
+          width: 100%;
+          outline: 0;
+          width: 100%;
+          padding: 0.8125rem 0.8125rem 0.8125rem 3.125rem;
+          border-radius: 8px;
+          border: 1px solid #bdbdbd;
+          color: #828282;
+          font-family: Open Sans, sans-serif;
+          font-weight: 400;
+          font-size: 1rem;
+        }
+      }
+
+      .submit-btn {
+        width: 100%;
+        margin-top: 16px;
+      }
+    }
+    .alternative-registration {
+      font-size: 0.875rem;
+      color: #828282;
+      margin: 1.5625rem 0;
+    }
+
+    .social-list {
+      display: flex;
+      align-items: center;
+      max-width: max-content;
+      margin: auto;
+      li {
+        display: flex;
+        place-content: center;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        background-color: #fff;
+        color: #828282;
+        border-radius: 50%;
+        border: 2px solid #828282;
+        padding: 0;
+        cursor: pointer;
+        svg {
+          width: 18px;
+          height: 18px;
+        }
+        &:not(:last-of-type) {
+          margin-right: 20px;
+        }
+      }
+    }
+    .member-link {
+      margin-top: 1.6875rem;
+    }
+  }
+}
+
+@media (min-width: 550px) {
+  .card {
+    margin: auto;
+    max-width: 433px;
+    border: 1px solid #bdbdbd;
+    padding: 3.125rem;
+    border-radius: 24px;
+  }
+}
