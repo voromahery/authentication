@@ -17,15 +17,14 @@ import {
   where,
   addDoc,
 } from "firebase/firestore";
-const apiKey = env.API_KEY;
+
 const firebaseConfig = {
-  apiKey: apiKey,
-  authDomain: "fir-auth-6edd8.firebaseapp.com",
-  projectId: "fir-auth-6edd8",
-  storageBucket: "fir-auth-6edd8.appspot.com",
-  messagingSenderId: "904760319835",
-  appId: "1:904760319835:web:44fd0d957f114b4e51447e",
-  measurementId: "G-Q4TYKH9GG7",
+  apiKey: env.API_KEY,
+  authDomain: env.AUTH_DOMAIN,
+  projectId: env.PROJECT_ID,
+  storageBucket: env.STORAGE_BUCKET,
+  messagingSenderId: env.MESSAGING_SENDER_ID,
+  appId: env.APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);

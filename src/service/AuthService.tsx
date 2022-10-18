@@ -2,7 +2,7 @@ import axios from "axios";
 import env from "ts-react-dotenv";
 
 const API = "https://identitytoolkit.googleapis.com/v1/accounts:"; //This is Firebase REST API for authentication
-const TOKEN =env.TOKEN;
+const TOKEN = env.TOKEN;
 
 type details = {
   email: string;
