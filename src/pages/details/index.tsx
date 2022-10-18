@@ -1,7 +1,8 @@
 import "./index.scss";
 import { Link } from "react-router-dom";
-import { Props, UserInitial } from "../../App";
+import { Props } from "../../App";
 import { EDIT } from "../../utils/paths";
+import UserInitial from "../../components/initial/index";
 
 const Details = ({ data }: Props) => {
   const { name, image, bio, email, password } = data;
@@ -32,7 +33,7 @@ const Details = ({ data }: Props) => {
                 {image ? (
                   <img src={image} alt={`${name} avatar`} />
                 ) : (
-                  <UserInitial />
+                  <UserInitial name={name} />
                 )}
               </td>
             </tr>

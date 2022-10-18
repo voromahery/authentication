@@ -1,8 +1,9 @@
 import { useState } from "react";
 import "./index.scss";
 import { Link } from "react-router-dom";
-import { Props, UserInitial } from "../../App";
+import { Props} from "../../App";
 import { HOME } from "../../utils/paths";
+import UserInitial from '../../components/initial/index';
 
 const Editform = ({ data }: Props) => {
   const [newName, setNewName] = useState<string>("");
@@ -33,7 +34,7 @@ const Editform = ({ data }: Props) => {
                 className="image-to-change"
               />
             ) : (
-              <UserInitial />
+              <UserInitial name={name} />
             )}
           </div>
           <span className="image-to-change-text"> Change photo</span>

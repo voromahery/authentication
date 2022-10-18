@@ -87,8 +87,9 @@
   @media (min-width: 551px) {
     display: flex;
     flex-direction: column;
-    height: 100vh;
     margin-top: calc(101px - 91px);
+    padding-left: 72px;
+    padding-right: 72px;
     .details-header,
     .extra-info {
       padding-left: 50px;

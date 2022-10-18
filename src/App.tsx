@@ -30,12 +30,6 @@ export type Props = {
   };
 };
 
-export const UserInitial = ({ name }: any) => {
-  const splitName = name?.split().map((name: string) => name[0]);
-  const initial = splitName?.join();
-  return <div className="avatar">{initial}</div>;
-};
-
 const App = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -49,7 +43,7 @@ const App = () => {
     bio: "",
     password: "*".repeat(9),
   };
-console.log('userData::::::', user);
+  console.log("userData::::::", user);
   return (
     <div>
       {user && <Menu data={userData} />}

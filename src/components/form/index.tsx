@@ -6,6 +6,7 @@ import { ReactComponent as GithubIcon } from "../../assets/github-icon.svg";
 import { ReactComponent as SecurityIcon } from "../../assets/security-icon.svg";
 import { ReactComponent as MailIcon } from "../../assets/mail-icon.svg";
 import { useLocation } from "react-router-dom";
+import { REGISTER } from '../../utils/paths';
 
 type Props = {
   email: string;
@@ -35,7 +36,7 @@ const Form = ({
 
       <div className="intro-wrapper">
         <h2 className="intro-heading">
-          {location.pathname === "/"
+          {location.pathname === REGISTER
             ? "  Join thousands of learners from around the world"
             : "Login"}
         </h2>
@@ -73,7 +74,7 @@ const Form = ({
             />
           </div>
           <button className="submit-btn">
-            {location.pathname === "/" ? "Start coding now" : "Login"}
+            {location.pathname === REGISTER ? "Start coding now" : "Login"}
           </button>
         </form>
         <p className="alternative-registration">

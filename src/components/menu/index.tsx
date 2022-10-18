@@ -6,7 +6,8 @@ import ProfileIcon from "../../assets/user.svg";
 import GroupChatIcon from "../../assets/group.svg";
 import LogoutIcon from "../../assets/logout.svg";
 
-import { Props, UserInitial } from "../../App";
+import { Props } from "../../App";
+import UserInitial from "../initial/index";
 
 const Menu = ({ data }: Props) => {
   const { name, image } = data;
@@ -43,7 +44,7 @@ const Menu = ({ data }: Props) => {
               alt={`${name ? name : "Me"} avatar`}
             />
           ) : (
-            <UserInitial />
+            <UserInitial name={name} width={32} height={32} />
           )}
           <b className="name">{name ? name : "Me"}</b>
         </div>
