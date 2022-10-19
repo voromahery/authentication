@@ -49,11 +49,15 @@
       display: flex;
       place-items: center;
       margin-bottom: 40px;
+      #avatar {
+        display: none;
+      }
       .image-wrapper {
         position: relative;
         width: 72px;
         height: 72px;
         margin-right: 20px;
+
         &::before {
           content: " ";
           width: 72px;

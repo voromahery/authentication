@@ -1,17 +1,47 @@
 import { useState } from "react";
 import "./index.scss";
 import { Link } from "react-router-dom";
-import { Props} from "../../App";
+import { Props } from "../../App";
 import { HOME } from "../../utils/paths";
-import UserInitial from '../../components/initial/index';
+import UserInitial from "../../components/initial/index";
+import { storage } from "../../firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 const Editform = ({ data }: Props) => {
+  const [newImage, setNewImage] = useState<any>("");
   const [newName, setNewName] = useState<string>("");
   const [newBio, setNewBio] = useState<string>("");
   const [newPhone, setNewPhone] = useState<string>("");
   const [newEmail, setNewEmail] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
+  const [percent, setPercent] = useState<number>(0);
   const { name, image, bio, email, password } = data;
+
+  const uploadImage = (event: any) => {
+    setNewImage(event.target.files[0]);
+    const storageRef = ref(storage, `/files/${newImage?.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, newImage);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const percent = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+
+        // update progress
+        setPercent(percent);
+      },
+      (err) => console.log(err),
+      () => {
+        // download url
+        getDownloadURL(uploadTask.snapshot.ref).then((url: string) => {
+          console.log(url);
+          setNewImage(url)
+        });
+      }
+    );
+  };
 
   return (
     <div className="edit-form">
@@ -26,7 +56,7 @@ const Editform = ({ data }: Props) => {
           </p>
         </header>
         <div className="wrapper">
-          <div className="image-wrapper">
+          <label htmlFor="avatar" className="image-wrapper">
             {image ? (
               <img
                 src={image}
@@ -36,7 +66,14 @@ const Editform = ({ data }: Props) => {
             ) : (
               <UserInitial name={name} />
             )}
-          </div>
+          </label>
+          <input
+            type="file"
+            id="avatar"
+            name="avatar"
+            accept="image/*"
+            onChange={uploadImage}
+          />
           <span className="image-to-change-text"> Change photo</span>
         </div>
         <form className="form">

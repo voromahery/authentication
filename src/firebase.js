@@ -17,6 +17,7 @@ import {
   where,
   addDoc,
 } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: env.API_KEY,
@@ -31,6 +32,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
+export const storage = getStorage(app);
 
 const signInWithGoogle = async () => {
   try {
