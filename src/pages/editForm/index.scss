@@ -57,6 +57,11 @@
         width: 72px;
         height: 72px;
         margin-right: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        overflow: hidden;
 
         &::before {
           content: " ";
@@ -73,8 +78,7 @@
           cursor: pointer;
         }
         img {
-          border-radius: 8px;
-          width: 72px;
+          max-height: 72px;
         }
       }
 

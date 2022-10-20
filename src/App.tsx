@@ -35,15 +35,19 @@ const App = () => {
   const [password, setPassword] = useState<string>("");
   const [user, loading, error]: any = useAuthState(auth);
 
+  const [newImage, setNewImage] = useState<string>("");
+
   const userData = {
     name: user?.displayName,
     email: user?.email,
     Phone: user?.phoneNumber,
-    image: user?.photoURL,
+    image: newImage || user?.photoURL,
     bio: "",
     password: "*".repeat(9),
   };
-  console.log("userData::::::", user);
+
+  console.log('user::::::', user);
+
   return (
     <div>
       {user && <Menu data={userData} />}
@@ -78,7 +82,16 @@ const App = () => {
           }
         />
         <Route path={HOME} element={<Details data={userData} />} />
-        <Route path={EDIT} element={<EditForm data={userData} />} />
+        <Route
+          path={EDIT}
+          element={
+            <EditForm
+              data={userData}
+              setNewImage={setNewImage}
+              newImage={newImage}
+            />
+          }
+        />
       </Routes>
       {user ? (
         <Navigate to={HOME} replace={true} />
