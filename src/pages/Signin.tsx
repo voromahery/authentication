@@ -19,6 +19,11 @@ const Signin = ({
   setPassword,
   signInWithGoogle,
 }: Props) => {
+  const login = (event: Event) => {
+    event.preventDefault();
+    logInWithEmailAndPassword(email, password);
+  };
+
   return (
     <div className="card-wrapper">
       <Form
@@ -29,7 +34,7 @@ const Signin = ({
           setPassword,
           signInWithGoogle,
         }}
-        onSubmit={() => logInWithEmailAndPassword(email, password)}
+        onSubmit={login}
         footer={
           <>
             Don't have an account yet? <Link to={REGISTER}>Register</Link>

@@ -27,6 +27,7 @@ type Props = {
 };
 
 const Editform = ({ setCurrentUser, currentUser }: Props) => {
+  const [message, setMessage] = useState("");
   const [user, loading, error]: any = useAuthState(auth);
   const [file, setFile] = useState<any>("");
   const [newImage, setNewImage] = useState<string>("");
@@ -56,7 +57,10 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
           // update progress
           setPercent(percent);
         },
-        (err) => console.log(err),
+        (err) => {
+          console.log(err);
+          setMessage("An error occurred");
+        },
         () =>
           // download url
           getDownloadURL(uploadTask?.snapshot?.ref).then((url: string) => {
@@ -64,10 +68,6 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
           })
       );
   };
-
-  useEffect(() => {
-    updateAvatar();
-  }, [file?.name]);
 
   const onSubmitChanges = async (event: any) => {
     event.preventDefault();
@@ -98,6 +98,7 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
         })
         .catch((error) => {
           alert(error);
+          setMessage("An error occurred");
         });
 
     newPassword &&
@@ -107,6 +108,7 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
         })
         .catch((error) => {
           alert(error);
+          setMessage("An error occurred");
         });
 
     setCurrentUser({
@@ -115,6 +117,11 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
       image: newImage || image,
     });
   };
+
+  useEffect(() => {
+    updateAvatar();
+  }, [file?.name]);
+  console.log(message);
 
   return (
     <div className="edit-form">
@@ -150,9 +157,10 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
           <label htmlFor="name">
             Name
             <input
+              type="text"
               id="name"
               placeholder="Enter your name..."
-              className=""
+              value={newName}
               onChange={(e) => setNewName(e.target.value)}
             />
           </label>
@@ -161,34 +169,37 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
             <textarea
               id="bio"
               placeholder="Enter your bio..."
-              className=""
+              value={newBio}
               onChange={(e) => setNewBio(e.target.value)}
             />
           </label>
           <label htmlFor="phone">
             Phone
             <input
+              type="text"
               id="phone"
               placeholder="Enter your phone..."
-              className=""
+              value={newPhone}
               onChange={(e) => setNewPhone(e.target.value)}
             />
           </label>
           <label htmlFor="email">
             Email
             <input
+              type="text"
               id="email"
               placeholder="Enter your email..."
-              className=""
+              value={newEmail}
               onChange={(e) => setNewEmail(e.target.value)}
             />
           </label>
           <label htmlFor="password">
             Password
             <input
+              type="password"
               id="password"
               placeholder="Enter your password..."
-              className=""
+              value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
             />
           </label>
