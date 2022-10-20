@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./index.scss";
 import { Link } from "react-router-dom";
 import { HOME } from "../../utils/paths";
@@ -6,10 +6,15 @@ import UserInitial from "../../components/initial/index";
 import { auth, storage } from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { updateEmail, updatePhoneNumber, updateProfile } from "firebase/auth";
+import {
+  updateCurrentUser,
+  updateEmail,
+  updatePhoneNumber,
+  updateProfile,
+} from "firebase/auth";
 
 type Props = {
-  data: {
+  currentUser: {
     name: string;
     email: string;
     Phone: string;
@@ -17,24 +22,23 @@ type Props = {
     bio: string;
     password: string;
   };
-  newImage?: string;
-  setNewImage: any;
+  setCurrentUser: any;
 };
 
-const Editform = ({ data, newImage, setNewImage }: Props) => {
+const Editform = ({ setCurrentUser, currentUser }: Props) => {
   const [user, loading, error]: any = useAuthState(auth);
   const [file, setFile] = useState<any>("");
+  const [newImage, setNewImage] = useState<string>("");
   const [newName, setNewName] = useState<string>("");
   const [newBio, setNewBio] = useState<string>("");
   const [newPhone, setNewPhone] = useState<string>("");
   const [newEmail, setNewEmail] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [percent, setPercent] = useState<number>(0);
-  const { name, image, bio, email, password } = data;
+  const { name, image, bio, email, password } = currentUser;
 
   const uploadImage = (event: any) => {
     setFile(event.target.files[0]);
-    setNewImage(event.target.files[0]);
   };
 
   const updateAvatar = () => {
@@ -51,21 +55,39 @@ const Editform = ({ data, newImage, setNewImage }: Props) => {
         setPercent(percent);
       },
       (err) => console.log(err),
-      () => {
+      () =>
         // download url
-        getDownloadURL(uploadTask.snapshot.ref).then((url: string) => {
+        getDownloadURL(uploadTask?.snapshot?.ref).then((url: string) => {
           setNewImage(url);
           updateProfile(user, { photoURL: url });
-        });
-      }
+        })
     );
   };
 
-  const onSubmitChanges = (event: any) => {
+  const onSubmitChanges = async (event: any) => {
     event.preventDefault();
 
-    newImage && updateAvatar();
+    file?.name && updateAvatar();
+
+    newName && updateProfile(user, { displayName: newName });
+
+    newEmail &&
+      updateEmail(user, newEmail)
+        .then(() => {
+          console.log("Email updated");
+        })
+        .catch((error) => {
+          alert(error);
+        });
+
+    setCurrentUser({
+      ...currentUser,
+      name: newName || name,
+      image: newImage || image,
+    });
   };
+
+  console.log("newImage::::::", file, newImage, percent);
 
   return (
     <div className="edit-form">
@@ -83,7 +105,7 @@ const Editform = ({ data, newImage, setNewImage }: Props) => {
           <label htmlFor="avatar" className="image-wrapper">
             {image ? (
               <img
-                src={image}
+                src={newImage || image}
                 alt={`${name} avatar`}
                 className="image-to-change"
               />

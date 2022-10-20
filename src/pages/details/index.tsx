@@ -4,8 +4,8 @@ import { Props } from "../../App";
 import { EDIT } from "../../utils/paths";
 import UserInitial from "../../components/initial/index";
 
-const Details = ({ data }: Props) => {
-  const { name, image, bio, email, password } = data;
+const Details = ({ currentUser }: Props) => {
+  const { name, image, bio, email, password } = currentUser;
   return (
     <div className="details">
       <header className="details-header">

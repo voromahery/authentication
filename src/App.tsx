@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Navigate } from "./utils/Navigate";
 import {
@@ -20,7 +20,7 @@ import Menu from "./components/menu";
 import { EDIT, HOME, REGISTER, LOGIN } from "./utils/paths";
 
 export type Props = {
-  data: {
+  currentUser: {
     name: string;
     email: string;
     Phone: string;
@@ -31,26 +31,34 @@ export type Props = {
 };
 
 const App = () => {
+  const [currentUser, setCurrentUser] = useState<any>({
+    name: "",
+    email: "",
+    Phone: "",
+    image: "",
+    bio: "",
+    password: "*".repeat(9),
+  });
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [user, loading, error]: any = useAuthState(auth);
-
-  const [newImage, setNewImage] = useState<string>("");
 
   const userData = {
     name: user?.displayName,
     email: user?.email,
     Phone: user?.phoneNumber,
-    image: newImage || user?.photoURL,
+    image: user?.photoURL,
     bio: "",
     password: "*".repeat(9),
   };
 
-  console.log('user::::::', user);
+  useEffect(() => {
+    setCurrentUser(userData);
+  }, [user]);
 
   return (
     <div>
-      {user && <Menu data={userData} />}
+      {user && <Menu currentUser={currentUser} />}
       <Routes>
         <Route
           path={LOGIN}
@@ -81,14 +89,13 @@ const App = () => {
             />
           }
         />
-        <Route path={HOME} element={<Details data={userData} />} />
+        <Route path={HOME} element={<Details currentUser={currentUser} />} />
         <Route
           path={EDIT}
           element={
             <EditForm
-              data={userData}
-              setNewImage={setNewImage}
-              newImage={newImage}
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
             />
           }
         />

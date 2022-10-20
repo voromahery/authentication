@@ -9,8 +9,8 @@ import LogoutIcon from "../../assets/logout.svg";
 import { Props } from "../../App";
 import UserInitial from "../initial/index";
 
-const Menu = ({ data }: Props) => {
-  const { name, image } = data;
+const Menu = ({ currentUser }: Props) => {
+  const { name, image } = currentUser;
   const [isOpened, setIsOpened] = useState<boolean>(false);
   const toggleRef: any = useRef(null);
 
