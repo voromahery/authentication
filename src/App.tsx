@@ -55,6 +55,7 @@ const App = () => {
   useEffect(() => {
     setCurrentUser(userData);
   }, [user]);
+  console.log(user);
 
   return (
     <div>

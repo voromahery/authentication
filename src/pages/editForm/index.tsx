@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./index.scss";
 import { Link } from "react-router-dom";
 import { HOME } from "../../utils/paths";
-import { auth, storage } from "../../firebase";
+import { auth, db, storage } from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {
@@ -95,6 +95,7 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
       updateEmail(user, newEmail)
         .then(() => {
           console.log("Email updated");
+          setMessage("Profile updated");
         })
         .catch((error) => {
           alert(error);
@@ -105,6 +106,7 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
       updatePassword(user, newPassword)
         .then(() => {
           console.log("Password updated");
+          setMessage("Profile updated");
         })
         .catch((error) => {
           alert(error);
@@ -115,13 +117,13 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
       ...currentUser,
       name: newName || name,
       image: newImage || image,
+      email: newEmail || email,
     });
   };
 
   useEffect(() => {
     updateAvatar();
   }, [file?.name]);
-  console.log(message);
 
   return (
     <div className="edit-form">
