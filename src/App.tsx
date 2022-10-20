@@ -58,7 +58,7 @@ const App = () => {
 
   return (
     <div>
-      {currentUser && <Menu currentUser={currentUser} />}
+      {user && <Menu currentUser={currentUser} />}
       <Routes>
         <Route
           path={LOGIN}

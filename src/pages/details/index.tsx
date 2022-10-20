@@ -2,7 +2,7 @@ import "./index.scss";
 import { Link } from "react-router-dom";
 import { Props } from "../../App";
 import { EDIT } from "../../utils/paths";
-import UserInitial from "../../components/initial/index";
+import userIcon from "../../assets/user.svg";
 
 const Details = ({ currentUser }: Props) => {
   const { name, image, bio, email, password } = currentUser;
@@ -30,11 +30,7 @@ const Details = ({ currentUser }: Props) => {
             <tr>
               <td>Photo</td>
               <td className="image-wrapper">
-                {image ? (
-                  <img src={image} alt={`${name} avatar`} />
-                ) : (
-                  <UserInitial name={name} />
-                )}
+                <img src={image ? image : userIcon} alt={`${name} avatar`} />
               </td>
             </tr>
             {name && (

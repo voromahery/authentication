@@ -2,16 +2,17 @@ import { useState, useEffect } from "react";
 import "./index.scss";
 import { Link } from "react-router-dom";
 import { HOME } from "../../utils/paths";
-import UserInitial from "../../components/initial/index";
 import { auth, storage } from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {
-  updateCurrentUser,
   updateEmail,
+  updatePassword,
   updatePhoneNumber,
   updateProfile,
 } from "firebase/auth";
+
+import userIcon from "../../assets/user.svg";
 
 type Props = {
   currentUser: {
@@ -45,22 +46,23 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
     const storageRef = ref(storage, `/files/${file?.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const percent = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        // update progress
-        setPercent(percent);
-      },
-      (err) => console.log(err),
-      () =>
-        // download url
-        getDownloadURL(uploadTask?.snapshot?.ref).then((url: string) => {
-          file?.name && setNewImage(url);
-        })
-    );
+    file?.name &&
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const percent = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          // update progress
+          setPercent(percent);
+        },
+        (err) => console.log(err),
+        () =>
+          // download url
+          getDownloadURL(uploadTask?.snapshot?.ref).then((url: string) => {
+            file?.name && setNewImage(url);
+          })
+      );
   };
 
   useEffect(() => {
@@ -70,14 +72,38 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
   const onSubmitChanges = async (event: any) => {
     event.preventDefault();
 
-    file?.name && updateProfile(user, { photoURL: newImage });
+    if (file?.name) {
+      updateProfile(user, {
+        photoURL: newImage,
+      });
+    }
 
-    newName && updateProfile(user, { displayName: newName });
+    if (newName) {
+      updateProfile(user, {
+        displayName: newName ? newName : name,
+      });
+    }
+
+    if (file?.name && newName) {
+      updateProfile(user, {
+        displayName: newName ? newName : name,
+        photoURL: file?.name ? newImage : name,
+      });
+    }
 
     newEmail &&
       updateEmail(user, newEmail)
         .then(() => {
           console.log("Email updated");
+        })
+        .catch((error) => {
+          alert(error);
+        });
+
+    newPassword &&
+      updatePassword(user, newPassword)
+        .then(() => {
+          console.log("Password updated");
         })
         .catch((error) => {
           alert(error);
@@ -90,10 +116,9 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
     });
   };
 
-  console.log("newImage::::::", newImage);
-
   return (
     <div className="edit-form">
+      <h3>{percent}</h3>
       <Link to={HOME} className="back-link">
         Back
       </Link>
@@ -106,15 +131,11 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
         </header>
         <div className="wrapper">
           <label htmlFor="avatar" className="image-wrapper">
-            {image ? (
-              <img
-                src={newImage || image}
-                alt={`${name} avatar`}
-                className="image-to-change"
-              />
-            ) : (
-              <UserInitial name={name} />
-            )}
+            <img
+              src={image ? newImage || image : userIcon}
+              alt={`${name} avatar`}
+              className={`image-to-change ${!image ? "no-image" : ""}`}
+            />
           </label>
           <input
             type="file"

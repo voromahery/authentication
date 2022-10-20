@@ -79,6 +79,9 @@
         }
         img {
           max-height: 72px;
+          &.no-image {
+            width: 100%;
+          }
         }
       }
 

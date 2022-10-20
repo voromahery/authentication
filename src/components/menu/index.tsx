@@ -2,12 +2,11 @@ import { useEffect, useState, useRef } from "react";
 import "./index.scss";
 import { logout } from "../../firebase";
 
-import ProfileIcon from "../../assets/user.svg";
+import userIcon from "../../assets/user.svg";
 import GroupChatIcon from "../../assets/group.svg";
 import LogoutIcon from "../../assets/logout.svg";
 
 import { Props } from "../../App";
-import UserInitial from "../initial/index";
 
 const Menu = ({ currentUser }: Props) => {
   const { name, image } = currentUser;
@@ -37,21 +36,18 @@ const Menu = ({ currentUser }: Props) => {
           className={isOpened ? "menu-trigger open-menu" : "menu-trigger"}
           onClick={() => setIsOpened(!isOpened)}
         >
-          {image ? (
-            <img
-              src={image}
-              className="image"
-              alt={`${name ? name : "Me"} avatar`}
-            />
-          ) : (
-            <UserInitial name={name} width={32} height={32} />
-          )}
+          <img
+            src={image ? image : userIcon}
+            className="image"
+            alt={`${name ? name : "Me"} avatar`}
+          />
+
           <b className="name">{name ? name : "Me"}</b>
         </div>
         <ul className={isOpened ? "menu-list open-list" : "menu-list"}>
           <li className="list-item profile">
             <button>
-              <img src={ProfileIcon} alt="profile-icon" /> My Profile
+              <img src={userIcon} alt="profile-icon" /> My Profile
             </button>
           </li>
           <li className="list-item group">
