@@ -58,16 +58,19 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
       () =>
         // download url
         getDownloadURL(uploadTask?.snapshot?.ref).then((url: string) => {
-          setNewImage(url);
-          updateProfile(user, { photoURL: url });
+          file?.name && setNewImage(url);
         })
     );
   };
 
+  useEffect(() => {
+    updateAvatar();
+  }, [file?.name]);
+
   const onSubmitChanges = async (event: any) => {
     event.preventDefault();
 
-    file?.name && updateAvatar();
+    file?.name && updateProfile(user, { photoURL: newImage });
 
     newName && updateProfile(user, { displayName: newName });
 
@@ -87,7 +90,7 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
     });
   };
 
-  console.log("newImage::::::", file, newImage, percent);
+  console.log("newImage::::::", newImage);
 
   return (
     <div className="edit-form">
