@@ -14,7 +14,8 @@ import {
   getDocs,
   collection,
   where,
-  addDoc,
+  setDoc,
+  doc,
 } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -41,10 +42,11 @@ const signInWithGoogle = async () => {
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
-      await addDoc(collection(db, "users"), {
+      await setDoc(doc(db, "users", user.uid), {
         uid: user.uid,
-        authProvider: "google",
+        authProvider: "local",
         email: user.email,
+        bio: "",
       });
     }
   } catch (err) {
@@ -66,10 +68,11 @@ const registerWithEmailAndPassword = async (email, password) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
-    await addDoc(collection(db, "users"), {
+    await setDoc(doc(db, "users", user.uid), {
       uid: user.uid,
       authProvider: "local",
       email,
+      bio: "",
     });
   } catch (err) {
     console.error(err);

@@ -5,17 +5,14 @@ import { HOME } from "../../utils/paths";
 import { auth, db, storage } from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useAuthState } from "react-firebase-hooks/auth";
-import {
-  updateEmail,
-  updatePassword,
-  updatePhoneNumber,
-  updateProfile,
-} from "firebase/auth";
+import { updateEmail, updatePassword, updateProfile } from "firebase/auth";
 
 import userIcon from "../../assets/user.svg";
+import { doc, updateDoc } from "firebase/firestore";
 
 type Props = {
   currentUser: {
+    id: string;
     name: string;
     email: string;
     Phone: string;
@@ -37,7 +34,7 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
   const [newEmail, setNewEmail] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [percent, setPercent] = useState<number>(0);
-  const { name, image, bio, email, password } = currentUser;
+  const { name, image, bio, email, password, id } = currentUser;
 
   const uploadImage = (event: any) => {
     setFile(event.target.files[0]);
@@ -69,7 +66,12 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
       );
   };
 
-  const onSubmitChanges = async (event: any) => {
+  const updateBio = async () => {
+    const userRef = await doc(db, "users", user?.uid);
+    return updateDoc(userRef, { bio: newBio });
+  };
+
+  const onSubmitChanges = (event: any) => {
     event.preventDefault();
 
     if (file?.name) {
@@ -113,11 +115,14 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
           setMessage("An error occurred");
         });
 
+    newBio && updateBio();
+
     setCurrentUser({
       ...currentUser,
       name: newName || name,
       image: newImage || image,
       email: newEmail || email,
+      bio: newBio || bio,
     });
   };
 

@@ -3,14 +3,12 @@ import { Routes, Route } from "react-router-dom";
 import { Navigate } from "./utils/Navigate";
 import {
   auth,
-  logInWithEmailAndPassword,
   signInWithGoogle,
   registerWithEmailAndPassword,
   db,
-  logout,
 } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { query, collection, getDocs, where } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 
 import EditForm from "./pages/editForm";
 import Register from "./pages/Register";
@@ -21,6 +19,7 @@ import { EDIT, HOME, REGISTER, LOGIN } from "./utils/paths";
 
 export type Props = {
   currentUser: {
+    id: string;
     name: string;
     email: string;
     Phone: string;
@@ -36,11 +35,12 @@ const App = () => {
     email: "",
     Phone: "",
     image: "",
-    bio: "",
     password: "*".repeat(9),
   });
+
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
   const [user, loading, error]: any = useAuthState(auth);
 
   const userData = {
@@ -48,14 +48,16 @@ const App = () => {
     email: user?.email,
     Phone: user?.phoneNumber,
     image: user?.photoURL,
-    bio: "",
     password: "*".repeat(9),
   };
 
   useEffect(() => {
-    setCurrentUser(userData);
+    const getUsers = async () => {
+      const data = await getDoc(doc(db, "users", user?.uid));
+      setCurrentUser({ ...userData, bio: data.data()?.bio, id: user?.uid });
+    };
+    user && getUsers();
   }, [user]);
-  console.log(user);
 
   return (
     <div>
