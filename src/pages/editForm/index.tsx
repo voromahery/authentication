@@ -130,15 +130,23 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
       bio: newBio || bio,
       phone: newPhone || phone,
     });
+
+    setNewName("");
+    setNewBio("");
+    setNewPhone("");
+    setNewEmail("");
+    setNewPassword("");
   };
 
   useEffect(() => {
     updateAvatar();
+    console.log(message, percent);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file?.name]);
 
   return (
     <div className="edit-form">
-      <h3>{percent}</h3>
+      {/* <h3>{percent}</h3> */}
       <Link to={HOME} className="back-link">
         Back
       </Link>

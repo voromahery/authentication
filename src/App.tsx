@@ -42,7 +42,7 @@ const App = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const [user, loading, error]: any = useAuthState(auth);
+  const [user]: any = useAuthState(auth);
 
   const userData = {
     name: user?.displayName,
@@ -62,6 +62,7 @@ const App = () => {
       });
     };
     user && getUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (

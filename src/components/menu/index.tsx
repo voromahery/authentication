@@ -25,6 +25,7 @@ const Menu = ({ currentUser }: Props) => {
 
   useEffect(() => {
     document.addEventListener("mousedown", onCloseDropdown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpened]);
 
   return (
