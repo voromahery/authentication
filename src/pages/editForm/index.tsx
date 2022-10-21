@@ -6,16 +6,16 @@ import { auth, db, storage } from "../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { updateEmail, updatePassword, updateProfile } from "firebase/auth";
+import { doc, updateDoc } from "firebase/firestore";
 
 import userIcon from "../../assets/user.svg";
-import { doc, updateDoc } from "firebase/firestore";
 
 type Props = {
   currentUser: {
     id: string;
     name: string;
     email: string;
-    Phone: string;
+    phone: string;
     image: string;
     bio: string;
     password: string;
@@ -25,7 +25,7 @@ type Props = {
 
 const Editform = ({ setCurrentUser, currentUser }: Props) => {
   const [message, setMessage] = useState("");
-  const [user, loading, error]: any = useAuthState(auth);
+  const [user]: any = useAuthState(auth);
   const [file, setFile] = useState<any>("");
   const [newImage, setNewImage] = useState<string>("");
   const [newName, setNewName] = useState<string>("");
@@ -34,7 +34,7 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
   const [newEmail, setNewEmail] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [percent, setPercent] = useState<number>(0);
-  const { name, image, bio, email, password, id } = currentUser;
+  const { name, image, bio, email, id, phone } = currentUser;
 
   const uploadImage = (event: any) => {
     setFile(event.target.files[0]);
@@ -67,8 +67,13 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
   };
 
   const updateBio = async () => {
-    const userRef = await doc(db, "users", user?.uid);
+    const userRef = await doc(db, "users", id);
     return updateDoc(userRef, { bio: newBio });
+  };
+
+  const updatePhoneNumber = async () => {
+    const userRef = await doc(db, "users", id);
+    return updateDoc(userRef, { phone: newPhone });
   };
 
   const onSubmitChanges = (event: any) => {
@@ -96,7 +101,6 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
     newEmail &&
       updateEmail(user, newEmail)
         .then(() => {
-          console.log("Email updated");
           setMessage("Profile updated");
         })
         .catch((error) => {
@@ -107,7 +111,6 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
     newPassword &&
       updatePassword(user, newPassword)
         .then(() => {
-          console.log("Password updated");
           setMessage("Profile updated");
         })
         .catch((error) => {
@@ -117,12 +120,15 @@ const Editform = ({ setCurrentUser, currentUser }: Props) => {
 
     newBio && updateBio();
 
+    newPhone && updatePhoneNumber();
+
     setCurrentUser({
       ...currentUser,
       name: newName || name,
       image: newImage || image,
       email: newEmail || email,
       bio: newBio || bio,
+      phone: newPhone || phone,
     });
   };
 

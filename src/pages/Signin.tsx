@@ -25,7 +25,7 @@ const Signin = ({
   };
 
   return (
-    <div className="card-wrapper">
+    <>
       <Form
         {...{
           email,
@@ -41,7 +41,7 @@ const Signin = ({
           </>
         }
       />
-    </div>
+    </>
   );
 };
 

@@ -7,6 +7,7 @@ import {
   registerWithEmailAndPassword,
   db,
 } from "./firebase";
+
 import { useAuthState } from "react-firebase-hooks/auth";
 import { doc, getDoc } from "firebase/firestore";
 
@@ -22,7 +23,7 @@ export type Props = {
     id: string;
     name: string;
     email: string;
-    Phone: string;
+    phone: string;
     image: string;
     bio: string;
     password: string;
@@ -46,7 +47,6 @@ const App = () => {
   const userData = {
     name: user?.displayName,
     email: user?.email,
-    Phone: user?.phoneNumber,
     image: user?.photoURL,
     password: "*".repeat(9),
   };
@@ -54,7 +54,12 @@ const App = () => {
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDoc(doc(db, "users", user?.uid));
-      setCurrentUser({ ...userData, bio: data.data()?.bio, id: user?.uid });
+      setCurrentUser({
+        ...userData,
+        bio: data.data()?.bio,
+        id: user?.uid,
+        phone: data.data()?.phone,
+      });
     };
     user && getUsers();
   }, [user]);

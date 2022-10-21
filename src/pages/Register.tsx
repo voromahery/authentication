@@ -1,7 +1,7 @@
 import React from "react";
 import Form from "../components/form";
 import { Link } from "react-router-dom";
-import { LOGIN } from '../utils/paths';
+import { LOGIN } from "../utils/paths";
 
 type Props = {
   email: string;
@@ -26,7 +26,7 @@ const Register = ({
   };
 
   return (
-    <div className="card-wrapper">
+    <>
       <Form
         {...{
           email,
@@ -42,7 +42,7 @@ const Register = ({
           </>
         }
       />
-    </div>
+    </>
   );
 };
 

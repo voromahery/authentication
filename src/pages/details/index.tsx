@@ -5,7 +5,7 @@ import { EDIT } from "../../utils/paths";
 import userIcon from "../../assets/user.svg";
 
 const Details = ({ currentUser }: Props) => {
-  const { name, image, bio, email, password } = currentUser;
+  const { name, image, bio, email, password, phone } = currentUser;
   return (
     <div className="details">
       <header className="details-header">
@@ -46,6 +46,14 @@ const Details = ({ currentUser }: Props) => {
                 <td>Bio</td>
                 <td>
                   <b>{bio}</b>
+                </td>
+              </tr>
+            )}
+            {phone && (
+              <tr>
+                <td>Phone</td>
+                <td>
+                  <b>{phone}</b>
                 </td>
               </tr>
             )}
