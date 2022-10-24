@@ -46,7 +46,7 @@ type AuthStates = {
   setNewPassword: React.Dispatch<string>;
   percent: number;
   setPercent: React.Dispatch<number>;
-  uploadImage:  React.Dispatch<any>;
+  uploadImage: React.Dispatch<any>;
   signInWithGoogle: React.Dispatch<any>;
   registerWithEmailAndPassword: React.Dispatch<any>;
 };
@@ -54,6 +54,7 @@ type AuthStates = {
 const Context = createContext<AuthStates | null>(null);
 
 const GlobalContext = (props: any) => {
+  const body = document.querySelector("body");
   const [currentUser, setCurrentUser] = useState({
     id: "",
     bio: "",
@@ -116,9 +117,14 @@ const GlobalContext = (props: any) => {
 
   useEffect(() => {
     updateAvatar();
-    console.log(message, percent);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file?.name]);
+
+  if (file?.name && percent < 100) {
+    body?.classList.add("show-modal");
+  } else {
+    body?.classList.remove("show-modal");
+  }
 
   useEffect(() => {
     const getUsers = async () => {

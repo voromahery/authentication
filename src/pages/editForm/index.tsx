@@ -14,6 +14,7 @@ const Editform = () => {
   const {
     user,
     file,
+    percent,
     currentUser,
     setCurrentUser,
     newImage,
@@ -103,7 +104,14 @@ const Editform = () => {
 
   return (
     <div className="edit-form">
-      {/* <h3>{percent}</h3> */}
+      {file?.name && percent < 100 && (
+        <div className="modal-wrapper">
+          <div className="upload-modal">
+            <h3>Uploading: {percent}%</h3>
+            <progress value={percent} max="100" />
+          </div>
+        </div>
+      )}
       <Link to={HOME} className="back-link">
         Back
       </Link>

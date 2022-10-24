@@ -7,6 +7,10 @@ html {
   box-sizing: inherit;
 }
 
+#root {
+  position: relative;
+}
+
 body,
 h1,
 h2,
@@ -22,10 +26,15 @@ ul {
   font-weight: normal;
 }
 
+.show-modal {
+  overflow: hidden;
+}
+
 body {
   & * {
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
   }
+
   ul {
     list-style: none;
     padding: none;
