@@ -1,15 +1,6 @@
-import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { useContext } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { Navigate } from "./utils/Navigate";
-import {
-  auth,
-  signInWithGoogle,
-  registerWithEmailAndPassword,
-  db,
-} from "./firebase";
-
-import { useAuthState } from "react-firebase-hooks/auth";
-import { doc, getDoc } from "firebase/firestore";
 
 import EditForm from "./pages/editForm";
 import Register from "./pages/Register";
@@ -17,103 +8,50 @@ import Signin from "./pages/Signin";
 import Details from "./pages/details";
 import Menu from "./components/menu";
 import { EDIT, HOME, REGISTER, LOGIN } from "./utils/paths";
-
-export type Props = {
-  currentUser: {
-    id: string;
-    name: string;
-    email: string;
-    phone: string;
-    image: string;
-    bio: string;
-    password: string;
-  };
-};
+import { Context } from "./global-context";
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState<any>({
-    name: "",
-    email: "",
-    Phone: "",
-    image: "",
-    password: "*".repeat(9),
-  });
+  const { user }: any = useContext(Context);
+  const location = useLocation();
+  const path = location.pathname;
 
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-
-  const [user]: any = useAuthState(auth);
-
-  const userData = {
-    name: user?.displayName,
-    email: user?.email,
-    image: user?.photoURL,
-    password: "*".repeat(9),
+  const footerClassName = () => {
+    if (path === HOME) {
+      return "detail";
+    } else if (path === EDIT) {
+      return "edit";
+    } else {
+      return "form";
+    }
   };
 
-  useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDoc(doc(db, "users", user?.uid));
-      setCurrentUser({
-        ...userData,
-        bio: data.data()?.bio,
-        id: user?.uid,
-        phone: data.data()?.phone,
-      });
-    };
-    user && getUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
-
   return (
-    <div>
-      {user && <Menu currentUser={currentUser} />}
+    <div
+      className={
+        path === EDIT || path === HOME
+          ? "main has-user-page"
+          : "main no-user-page"
+      }
+    >
+      {user && <Menu />}
       <Routes>
-        <Route
-          path={LOGIN}
-          element={
-            <Signin
-              {...{
-                email,
-                setEmail,
-                password,
-                setPassword,
-                signInWithGoogle,
-              }}
-            />
-          }
-        />
-        <Route
-          path={REGISTER}
-          element={
-            <Register
-              {...{
-                email,
-                setEmail,
-                password,
-                setPassword,
-                registerWithEmailAndPassword,
-                signInWithGoogle,
-              }}
-            />
-          }
-        />
-        <Route path={HOME} element={<Details currentUser={currentUser} />} />
-        <Route
-          path={EDIT}
-          element={
-            <EditForm
-              currentUser={currentUser}
-              setCurrentUser={setCurrentUser}
-            />
-          }
-        />
+        <Route path={LOGIN} element={<Signin />} />
+        <Route path={REGISTER} element={<Register />} />
+        <Route path={HOME} element={<Details />} />
+        <Route path={EDIT} element={<EditForm />} />
       </Routes>
       {user ? (
         <Navigate to={HOME} replace={true} />
       ) : (
         <Navigate to={REGISTER} replace={true} />
       )}
+      <footer className={`footer-${footerClassName()}`}>
+        <div>
+          <span>Created by</span>{" "}
+          <a href="https://github.com/voromahery">H.Daniel Fabrice</a>
+        </div>
+        <a href="https://devchallenges.io/">devChallenges.io</a>
+      </footer>
     </div>
   );
 };

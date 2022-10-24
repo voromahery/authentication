@@ -1,10 +1,12 @@
 import "./index.scss";
 import { Link } from "react-router-dom";
-import { Props } from "../../App";
 import { EDIT } from "../../utils/paths";
 import userIcon from "../../assets/user.svg";
+import { Context } from "../../global-context";
+import { useContext } from "react";
 
-const Details = ({ currentUser }: Props) => {
+const Details = () => {
+  const { currentUser }: any = useContext(Context);
   const { name, image, bio, email, password, phone } = currentUser;
   return (
     <div className="details">

@@ -1,15 +1,16 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import "./index.scss";
 import { logout } from "../../firebase";
+import { Context } from "../../global-context";
 
 import userIcon from "../../assets/user.svg";
 import GroupChatIcon from "../../assets/group.svg";
 import LogoutIcon from "../../assets/logout.svg";
 
-import { Props } from "../../App";
-
-const Menu = ({ currentUser }: Props) => {
+const Menu = () => {
+  const { currentUser }: any = useContext(Context);
   const { name, image } = currentUser;
+
   const [isOpened, setIsOpened] = useState<boolean>(false);
   const toggleRef: any = useRef(null);
 

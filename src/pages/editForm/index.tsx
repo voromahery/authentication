@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "./index.scss";
 import { Link } from "react-router-dom";
 import { HOME } from "../../utils/paths";
@@ -7,23 +7,11 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { updateEmail, updatePassword, updateProfile } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
-
+import { Context } from "../../global-context";
 import userIcon from "../../assets/user.svg";
 
-type Props = {
-  currentUser: {
-    id: string;
-    name: string;
-    email: string;
-    phone: string;
-    image: string;
-    bio: string;
-    password: string;
-  };
-  setCurrentUser: any;
-};
-
-const Editform = ({ setCurrentUser, currentUser }: Props) => {
+const Editform = () => {
+  const { currentUser, setCurrentUser }: any = useContext(Context);
   const [message, setMessage] = useState("");
   const [user]: any = useAuthState(auth);
   const [file, setFile] = useState<any>("");

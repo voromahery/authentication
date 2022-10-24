@@ -1,24 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import Form from "../components/form";
 import { logInWithEmailAndPassword } from "../firebase";
+import { Context } from "../global-context";
 import { REGISTER } from "../utils/paths";
+import Form from "../components/form";
 
-type Props = {
-  email: string;
-  password: string;
-  signInWithGoogle: React.Dispatch<any>;
-  setEmail: React.Dispatch<string>;
-  setPassword: React.Dispatch<string>;
-};
-
-const Signin = ({
-  email,
-  setEmail,
-  password,
-  setPassword,
-  signInWithGoogle,
-}: Props) => {
+const Signin = () => {
+  const { email, setEmail, password, setPassword, signInWithGoogle }:any =
+    useContext(Context);
   const login = (event: Event) => {
     event.preventDefault();
     logInWithEmailAndPassword(email, password);

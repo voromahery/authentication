@@ -1,25 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import Form from "../components/form";
 import { Link } from "react-router-dom";
 import { LOGIN } from "../utils/paths";
+import { Context } from "../global-context";
 
-type Props = {
-  email: string;
-  password: string;
-  signInWithGoogle: React.Dispatch<any>;
-  registerWithEmailAndPassword: any;
-  setEmail: React.Dispatch<string>;
-  setPassword: React.Dispatch<string>;
-};
-
-const Register = ({
-  email,
-  password,
-  setEmail,
-  setPassword,
-  signInWithGoogle,
-  registerWithEmailAndPassword,
-}: Props) => {
+const Register = () => {
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    registerWithEmailAndPassword,
+    signInWithGoogle,
+  }: any = useContext(Context);
   const register = (e: any) => {
     e.preventDefault();
     registerWithEmailAndPassword(email, password);

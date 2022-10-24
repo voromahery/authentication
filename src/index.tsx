@@ -4,15 +4,18 @@ import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
+import { GlobalContext } from "./global-context";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Router>
-      <App />
-    </Router>
+    <GlobalContext>
+      <Router>
+        <App />
+      </Router>
+    </GlobalContext>
   </React.StrictMode>
 );
 
