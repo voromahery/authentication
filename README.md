@@ -1,46 +1,63 @@
-# Getting Started with Create React App
+<h1 align="center">Authentication</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div align="center">
+  <h3>
+    <a href="https://authentication-ts.netlify.app/">
+      Demo
+    </a>
+  </h3>
+</div>
 
-## Available Scripts
+<!-- TABLE OF CONTENTS -->
 
-In the project directory, you can run:
+## Table of Contents
 
-### `npm start`
+<!-- - [Overview](#overview) -->
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [Built With](#built-with)
+- [Features](#features)
+- [How to use](#how-to-use)
+- [Contact](#contact)
+- [Acknowledgements](#acknowledgements)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<!-- OVERVIEW -->
 
-### `npm test`
+## Overview
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![form](./form.png)
 
-### `npm run build`
+![detail](./detail.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## [Acknowledgements](#acknowledgements)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+An application that allow a user to register and login by using social network or email. This is build in order to practice Firebase.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Built With
 
-### `npm run eject`
+- [SASS](https://sass-lang.com/)
+- [Firebase](https://firebase.google.com/?gclid=Cj0KCQjwhsmaBhCvARIsAIbEbH4vKTuET8xy7WJGdlNlt2piuk2_-YD2vVZUHY2mKg2XxNtKZ_vSEfAaAjIkEALw_wcB&gclsrc=aw.ds)
+- [TypeScript](https://www.typescriptlang.org/)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Features
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- [Material design icon](https://google.github.io/material-design-icons/)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## How To Use
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
-## Learn More
+```bash
+# Clone this repository
+$ git clone https://github.com/voromahery/authentication-ts
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Install dependencies
+$ npm install
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Run the app
+$ npm start
+```
+
+## Contact
+
+- Email: daniel.her@onja.org
+- GitHub [voromahery](https://github.com/voromahery)
