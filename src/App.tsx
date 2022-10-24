@@ -25,14 +25,18 @@ const App = () => {
     }
   };
 
+  const mainClassName = () => {
+    if (path === EDIT) {
+      return "main-edit has-user-page";
+    } else if (path === HOME) {
+      return "main-home has-user-page";
+    } else {
+      return "main no-user-page";
+    }
+  };
+
   return (
-    <div
-      className={
-        path === EDIT || path === HOME
-          ? "main has-user-page"
-          : "main no-user-page"
-      }
-    >
+    <div className={`main ${mainClassName()}`}>
       {user && <Menu />}
       <Routes>
         <Route path={LOGIN} element={<Signin />} />

@@ -1,58 +1,37 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext, useRef } from "react";
 import "./index.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HOME } from "../../utils/paths";
-import { auth, db, storage } from "../../firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { updateEmail, updatePassword, updateProfile } from "firebase/auth";
-import { doc, updateDoc } from "firebase/firestore";
 import { Context } from "../../global-context";
 import userIcon from "../../assets/user.svg";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase";
+import { updateEmail, updatePassword, updateProfile } from "firebase/auth";
 
 const Editform = () => {
-  const { currentUser, setCurrentUser }: any = useContext(Context);
-  const [message, setMessage] = useState("");
-  const [user]: any = useAuthState(auth);
-  const [file, setFile] = useState<any>("");
-  const [newImage, setNewImage] = useState<string>("");
-  const [newName, setNewName] = useState<string>("");
-  const [newBio, setNewBio] = useState<string>("");
-  const [newPhone, setNewPhone] = useState<string>("");
-  const [newEmail, setNewEmail] = useState<string>("");
-  const [newPassword, setNewPassword] = useState<string>("");
-  const [percent, setPercent] = useState<number>(0);
-  const { name, image, bio, email, id, phone } = currentUser;
+  const navigate = useNavigate();
+  const navigateRef = useRef(navigate);
+  const {
+    user,
+    file,
+    currentUser,
+    setCurrentUser,
+    newImage,
+    newName,
+    setNewName,
+    newBio,
+    setNewBio,
+    newPhone,
+    setNewPhone,
+    newEmail,
+    setNewEmail,
+    newPassword,
+    setNewPassword,
+    setMessage,
+    uploadImage,
+  }: any = useContext(Context);
 
-  const uploadImage = (event: any) => {
-    setFile(event.target.files[0]);
-  };
-
-  const updateAvatar = () => {
-    const storageRef = ref(storage, `/files/${file?.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-
-    file?.name &&
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const percent = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-          // update progress
-          setPercent(percent);
-        },
-        (err) => {
-          console.log(err);
-          setMessage("An error occurred");
-        },
-        () =>
-          // download url
-          getDownloadURL(uploadTask?.snapshot?.ref).then((url: string) => {
-            file?.name && setNewImage(url);
-          })
-      );
-  };
+  const { name, image, id, email, bio, phone } = currentUser;
 
   const updateBio = async () => {
     const userRef = await doc(db, "users", id);
@@ -119,18 +98,8 @@ const Editform = () => {
       phone: newPhone || phone,
     });
 
-    setNewName("");
-    setNewBio("");
-    setNewPhone("");
-    setNewEmail("");
-    setNewPassword("");
+    navigateRef.current(HOME, { replace: true, state: null });
   };
-
-  useEffect(() => {
-    updateAvatar();
-    console.log(message, percent);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [file?.name]);
 
   return (
     <div className="edit-form">
