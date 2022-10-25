@@ -1,20 +1,13 @@
 import React, { useContext } from "react";
-import Form from "../components/form";
 import { Link } from "react-router-dom";
 import { LOGIN } from "../utils/paths";
 import { Context } from "../global-context";
+import Form from "../components/form";
 
 const Register = () => {
-  const {
-    email,
-    setEmail,
-    password,
-    setPassword,
-    registerWithEmailAndPassword,
-    signInWithGoogle,
-    signInWithFacebook,
-    signinWithTwitter,
-  }: any = useContext(Context);
+  const { email, password, registerWithEmailAndPassword }: any =
+    useContext(Context);
+
   const register = (e: any) => {
     e.preventDefault();
     registerWithEmailAndPassword(email, password);
@@ -23,15 +16,6 @@ const Register = () => {
   return (
     <>
       <Form
-        {...{
-          email,
-          setEmail,
-          password,
-          setPassword,
-          signInWithGoogle,
-          signInWithFacebook,
-          signinWithTwitter,
-        }}
         onSubmit={register}
         footer={
           <>

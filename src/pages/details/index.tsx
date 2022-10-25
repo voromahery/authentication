@@ -5,11 +5,27 @@ import userIcon from "../../assets/user.svg";
 import { Context } from "../../global-context";
 import { useContext } from "react";
 
+import { ReactComponent as CheckIcon } from "../../assets/check-icon.svg";
+import { ReactComponent as CrossIcon } from "../../assets/cross-icon.svg";
+
 const Details = () => {
-  const { currentUser }: any = useContext(Context);
+  const { currentUser, message }: any = useContext(Context);
+
   const { name, image, bio, email, password, phone } = currentUser;
+
+  const isError = message?.status?.toLowerCase() === "error";
+
   return (
     <div className="details">
+      {message?.message && (
+        <div
+          className={`message ${isError ? "error-message" : "success-message"}`}
+        >
+          <>{message?.message}</>
+          {isError ? <CrossIcon /> : <CheckIcon />}
+        </div>
+      )}
+
       <header className="details-header">
         <h2 className="heading">Personal info</h2>
         <p className="paragraph">Basic info, like your name and photo</p>

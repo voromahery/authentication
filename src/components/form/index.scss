@@ -90,6 +90,27 @@
           &:not(:last-of-type) {
             margin-right: 20px;
           }
+          &.google:hover,
+          &.google:focus {
+            color: #e44d32;
+            border: 2px solid #e44d32;
+          }
+          &.facebook:hover,
+          &.facebook:focus {
+            color: #3a5794;
+            border: 2px solid #3a5794;
+          }
+
+          &.twitter:hover,
+          &.twitter:focus {
+            color: #3e9dea;
+            border: 2px solid #3e9dea;
+          }
+          &.github:hover,
+          &.github:focus {
+            color: black;
+            border: 2px solid black;
+          }
         }
       }
       .member-link {

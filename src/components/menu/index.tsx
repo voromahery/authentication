@@ -6,6 +6,8 @@ import { Context } from "../../global-context";
 import userIcon from "../../assets/user.svg";
 import GroupChatIcon from "../../assets/group.svg";
 import LogoutIcon from "../../assets/logout.svg";
+import { Link } from "react-router-dom";
+import { HOME } from "../../utils/paths";
 
 const Menu = () => {
   const { currentUser }: any = useContext(Context);
@@ -31,7 +33,9 @@ const Menu = () => {
 
   return (
     <header className="header">
-      <h1>DevChallenge</h1>
+      <Link to={HOME}>
+        <h1>DevChallenge</h1>
+      </Link>
 
       <div className="menu" ref={toggleRef}>
         <div

@@ -2,7 +2,7 @@
 
 <div align="center">
   <h3>
-    <a href="https://authentication-ts.netlify.app/">
+    <a href="https://authentication-dan.netlify.app/">
       Demo
     </a>
   </h3>
@@ -12,7 +12,7 @@
 
 ## Table of Contents
 
-<!-- - [Overview](#overview) -->
+- [Overview](#overview)
 
 - [Built With](#built-with)
 - [Features](#features)
@@ -48,7 +48,7 @@ To clone and run this application, you'll need [Git](https://git-scm.com) and [N
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/voromahery/authentication-ts
+$ git clone https://github.com/voromahery/authentication
 
 # Install dependencies
 $ npm install

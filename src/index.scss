@@ -94,13 +94,12 @@ body {
     margin-left: auto;
     margin-right: auto;
     padding: 0 20px 17px 20px;
-    * {
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 19px;
-      color: #828282;
-    }
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+
     div {
+      color: #828282;
       span {
         display: none;
       }
@@ -108,6 +107,13 @@ body {
         font-weight: 600;
       }
     }
+    a {
+      color: #828282;
+      &:hover {
+        color: #2f80ed;
+      }
+    }
+
     &.footer-edit,
     &.footer-detail {
       max-width: calc(846px + calc(72px * 2));

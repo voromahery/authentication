@@ -16,14 +16,15 @@ interface currentUserType {
 
 type AuthStates = {
   user: any;
+  loading: boolean;
   currentUser: currentUserType;
   setCurrentUser: React.Dispatch<currentUserType>;
   email: string;
   setEmail: React.Dispatch<string>;
   password: string;
   setPassword: React.Dispatch<string>;
-  message: string;
-  setMessage: React.Dispatch<string>;
+  message: { status: string; message: string };
+  setMessage: React.Dispatch<{ status: string; message: string }>;
   file: any;
   setFile: React.Dispatch<any>;
   newImage: string;
@@ -59,7 +60,7 @@ const GlobalContext = (props: any) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState({ status: "", message: "" });
   const [file, setFile] = useState<any>("");
   const [newImage, setNewImage] = useState<string>("");
   const [newName, setNewName] = useState<string>("");
@@ -68,7 +69,7 @@ const GlobalContext = (props: any) => {
   const [newEmail, setNewEmail] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [percent, setPercent] = useState<number>(0);
-  const [user]: any = useAuthState(auth);
+  const [user, loading]: any = useAuthState(auth);
 
   const userData = {
     name: user?.displayName,
@@ -96,8 +97,7 @@ const GlobalContext = (props: any) => {
           setPercent(percent);
         },
         (err) => {
-          console.log(err);
-          setMessage("An error occurred");
+          setMessage({ status: "error", message: "An error occurred" });
         },
         () =>
           // download url
@@ -136,6 +136,7 @@ const GlobalContext = (props: any) => {
     <Context.Provider
       value={{
         user,
+        loading,
         currentUser,
         setCurrentUser,
         email,

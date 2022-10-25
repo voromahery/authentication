@@ -34,6 +34,9 @@ const Editform = () => {
 
   const { name, image, id, email, bio, phone } = currentUser;
 
+  const isEnabled =
+    newImage || newName || newBio || newPhone || newPassword || newEmail;
+
   const updateBio = async () => {
     const userRef = await doc(db, "users", id);
     return updateDoc(userRef, { bio: newBio });
@@ -73,7 +76,7 @@ const Editform = () => {
         })
         .catch((error) => {
           alert(error);
-          setMessage("An error occurred");
+          setMessage({ status: "error", message: "An error occurred" });
         });
 
     newPassword &&
@@ -83,7 +86,7 @@ const Editform = () => {
         })
         .catch((error) => {
           alert(error);
-          setMessage("An error occurred");
+          setMessage({ status: "error", message: "An error occurred" });
         });
 
     newBio && updateBio();
@@ -99,7 +102,13 @@ const Editform = () => {
       phone: newPhone || phone,
     });
 
-    navigateRef.current(HOME, { replace: true, state: null });
+    isEnabled && navigateRef.current(HOME, { replace: true, state: null });
+
+    setMessage({ status: "success", message: "Profile updated" });
+
+    setTimeout(() => {
+      setMessage({ status: "", message: "" });
+    }, 2000);
   };
 
   return (
@@ -189,7 +198,9 @@ const Editform = () => {
               onChange={(e) => setNewPassword(e.target.value)}
             />
           </label>
-          <button className="edit-button">Save</button>
+          <button className="edit-button" disabled={!isEnabled}>
+            Save
+          </button>
         </div>
       </form>
     </div>

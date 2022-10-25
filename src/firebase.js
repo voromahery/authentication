@@ -9,6 +9,7 @@ import {
   signOut,
   FacebookAuthProvider,
   TwitterAuthProvider,
+  GithubAuthProvider,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -33,15 +34,20 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-const googleProvider = new GoogleAuthProvider();
-const facebookProvider = new FacebookAuthProvider();
-const twitterProvider = new TwitterAuthProvider();
+
+export const googleProvider = new GoogleAuthProvider();
+
+export const facebookProvider = new FacebookAuthProvider();
+
+export const twitterProvider = new TwitterAuthProvider();
+
+export const githubProvider = new GithubAuthProvider();
 
 export const storage = getStorage(app);
 
-const signinWithTwitter = async () => {
+const signinWithSocialNetwork = async (provider, twitterMessage) => {
   try {
-    const res = await signInWithPopup(auth, twitterProvider);
+    const res = await signInWithPopup(auth, provider);
     const user = res.user;
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
@@ -55,51 +61,11 @@ const signinWithTwitter = async () => {
       });
     }
   } catch (err) {
-    alert(
-      "The request for elevating the Twitter API is still pending. Thank you so much with your patience"
-    );
-  }
-};
-
-const signInWithFacebook = async () => {
-  try {
-    const res = await signInWithPopup(auth, facebookProvider);
-    const user = res.user;
-    const q = query(collection(db, "users"), where("uid", "==", user.uid));
-    const docs = await getDocs(q);
-    if (docs.docs.length === 0) {
-      await setDoc(doc(db, "users", user.uid), {
-        uid: user.uid,
-        authProvider: "local",
-        email: user.email,
-        bio: "",
-        phone: "",
-      });
+    if (err.message.includes("account-exists-with-different-credential")) {
+      alert("Sorry, this account is already used");
+    } else {
+      alert(twitterMessage || err.message);
     }
-  } catch (err) {
-    console.error(err);
-    alert(err.message);
-  }
-};
-
-const signInWithGoogle = async () => {
-  try {
-    const res = await signInWithPopup(auth, googleProvider);
-    const user = res.user;
-    const q = query(collection(db, "users"), where("uid", "==", user.uid));
-    const docs = await getDocs(q);
-    if (docs.docs.length === 0) {
-      await setDoc(doc(db, "users", user.uid), {
-        uid: user.uid,
-        authProvider: "local",
-        email: user.email,
-        bio: "",
-        phone: "",
-      });
-    }
-  } catch (err) {
-    console.error(err);
-    alert(err.message);
   }
 };
 
@@ -136,9 +102,7 @@ const logout = () => {
 export {
   auth,
   db,
-  signInWithGoogle,
-  signInWithFacebook,
-  signinWithTwitter,
+  signinWithSocialNetwork,
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
   logout,
