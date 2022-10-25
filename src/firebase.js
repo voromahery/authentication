@@ -39,6 +39,28 @@ const twitterProvider = new TwitterAuthProvider();
 
 export const storage = getStorage(app);
 
+const signinWithTwitter = async () => {
+  try {
+    const res = await signInWithPopup(auth, twitterProvider);
+    const user = res.user;
+    const q = query(collection(db, "users"), where("uid", "==", user.uid));
+    const docs = await getDocs(q);
+    if (docs.docs.length === 0) {
+      await setDoc(doc(db, "users", user.uid), {
+        uid: user.uid,
+        authProvider: "local",
+        email: user.email,
+        bio: "",
+        phone: "",
+      });
+    }
+  } catch (err) {
+    alert(
+      "The request for elevating the Twitter API is still pending. Thank you so much with your patience"
+    );
+  }
+};
+
 const signInWithFacebook = async () => {
   try {
     const res = await signInWithPopup(auth, facebookProvider);
@@ -116,6 +138,7 @@ export {
   db,
   signInWithGoogle,
   signInWithFacebook,
+  signinWithTwitter,
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
   logout,

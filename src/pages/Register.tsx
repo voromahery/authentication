@@ -13,6 +13,7 @@ const Register = () => {
     registerWithEmailAndPassword,
     signInWithGoogle,
     signInWithFacebook,
+    signinWithTwitter,
   }: any = useContext(Context);
   const register = (e: any) => {
     e.preventDefault();
@@ -29,6 +30,7 @@ const Register = () => {
           setPassword,
           signInWithGoogle,
           signInWithFacebook,
+          signinWithTwitter,
         }}
         onSubmit={register}
         footer={

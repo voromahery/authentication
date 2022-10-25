@@ -13,6 +13,7 @@ const Signin = () => {
     setPassword,
     signInWithGoogle,
     signInWithFacebook,
+    signinWithTwitter,
   }: any = useContext(Context);
   const login = (event: Event) => {
     event.preventDefault();
@@ -29,6 +30,7 @@ const Signin = () => {
           setPassword,
           signInWithGoogle,
           signInWithFacebook,
+          signinWithTwitter,
         }}
         onSubmit={login}
         footer={

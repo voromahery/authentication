@@ -7,7 +7,11 @@ import { ReactComponent as SecurityIcon } from "../../assets/security-icon.svg";
 import { ReactComponent as MailIcon } from "../../assets/mail-icon.svg";
 import { useLocation } from "react-router-dom";
 import { REGISTER } from "../../utils/paths";
-import { signInWithFacebook, signInWithGoogle } from "../../firebase";
+import {
+  signInWithFacebook,
+  signInWithGoogle,
+  signinWithTwitter,
+} from "../../firebase";
 
 type Props = {
   email: string;
@@ -17,6 +21,7 @@ type Props = {
   onSubmit: React.Dispatch<any>;
   signInWithGoogle: React.Dispatch<any>;
   signInWithFacebook: React.Dispatch<any>;
+  signinWithTwitter: React.Dispatch<any>;
   footer: any;
 };
 
@@ -89,7 +94,7 @@ const Form = ({
             <li className="list-item" onClick={signInWithFacebook}>
               <FacebookIcon />
             </li>
-            <li className="list-item">
+            <li className="list-item" onClick={signinWithTwitter}>
               <TwitterIcon />
             </li>
             <li className="list-item">
