@@ -6,8 +6,14 @@ import { REGISTER } from "../utils/paths";
 import Form from "../components/form";
 
 const Signin = () => {
-  const { email, setEmail, password, setPassword, signInWithGoogle }:any =
-    useContext(Context);
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    signInWithGoogle,
+    signInWithFacebook,
+  }: any = useContext(Context);
   const login = (event: Event) => {
     event.preventDefault();
     logInWithEmailAndPassword(email, password);
@@ -22,6 +28,7 @@ const Signin = () => {
           password,
           setPassword,
           signInWithGoogle,
+          signInWithFacebook,
         }}
         onSubmit={login}
         footer={

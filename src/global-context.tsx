@@ -1,13 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import {
-  auth,
-  signInWithGoogle,
-  registerWithEmailAndPassword,
-  db,
-  storage,
-} from "./firebase";
+import { auth, db, storage } from "./firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 interface currentUserType {
@@ -47,8 +41,6 @@ type AuthStates = {
   percent: number;
   setPercent: React.Dispatch<number>;
   uploadImage: React.Dispatch<any>;
-  signInWithGoogle: React.Dispatch<any>;
-  registerWithEmailAndPassword: React.Dispatch<any>;
 };
 
 const Context = createContext<AuthStates | null>(null);
@@ -169,8 +161,6 @@ const GlobalContext = (props: any) => {
         percent,
         setPercent,
         uploadImage,
-        signInWithGoogle,
-        registerWithEmailAndPassword,
       }}
     >
       {props.children}

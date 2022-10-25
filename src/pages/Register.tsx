@@ -12,6 +12,7 @@ const Register = () => {
     setPassword,
     registerWithEmailAndPassword,
     signInWithGoogle,
+    signInWithFacebook,
   }: any = useContext(Context);
   const register = (e: any) => {
     e.preventDefault();
@@ -27,6 +28,7 @@ const Register = () => {
           password,
           setPassword,
           signInWithGoogle,
+          signInWithFacebook,
         }}
         onSubmit={register}
         footer={

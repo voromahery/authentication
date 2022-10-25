@@ -7,6 +7,7 @@ import { ReactComponent as SecurityIcon } from "../../assets/security-icon.svg";
 import { ReactComponent as MailIcon } from "../../assets/mail-icon.svg";
 import { useLocation } from "react-router-dom";
 import { REGISTER } from "../../utils/paths";
+import { signInWithFacebook, signInWithGoogle } from "../../firebase";
 
 type Props = {
   email: string;
@@ -15,6 +16,7 @@ type Props = {
   setPassword: React.Dispatch<string>;
   onSubmit: React.Dispatch<any>;
   signInWithGoogle: React.Dispatch<any>;
+  signInWithFacebook: React.Dispatch<any>;
   footer: any;
 };
 
@@ -24,7 +26,6 @@ const Form = ({
   password,
   setPassword,
   onSubmit,
-  signInWithGoogle,
   footer,
 }: Props) => {
   const location = useLocation();
@@ -85,7 +86,7 @@ const Form = ({
             <li className="list-item" onClick={signInWithGoogle}>
               <GoogleIcon />
             </li>
-            <li className="list-item">
+            <li className="list-item" onClick={signInWithFacebook}>
               <FacebookIcon />
             </li>
             <li className="list-item">

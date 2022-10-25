@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
+  FacebookAuthProvider,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -32,8 +33,30 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
 
 export const storage = getStorage(app);
+
+const signInWithFacebook = async () => {
+  try {
+    const res = await signInWithPopup(auth, facebookProvider);
+    const user = res.user;
+    const q = query(collection(db, "users"), where("uid", "==", user.uid));
+    const docs = await getDocs(q);
+    if (docs.docs.length === 0) {
+      await setDoc(doc(db, "users", user.uid), {
+        uid: user.uid,
+        authProvider: "local",
+        email: user.email,
+        bio: "",
+        phone: user.phoneNumber || "",
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
 
 const signInWithGoogle = async () => {
   try {
@@ -90,6 +113,7 @@ export {
   auth,
   db,
   signInWithGoogle,
+  signInWithFacebook,
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
   logout,
