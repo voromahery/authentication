@@ -8,6 +8,7 @@ import {
   createUserWithEmailAndPassword,
   signOut,
   FacebookAuthProvider,
+  TwitterAuthProvider,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -34,6 +35,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
+const twitterProvider = new TwitterAuthProvider();
 
 export const storage = getStorage(app);
 
@@ -49,7 +51,7 @@ const signInWithFacebook = async () => {
         authProvider: "local",
         email: user.email,
         bio: "",
-        phone: user.phoneNumber || "",
+        phone: "",
       });
     }
   } catch (err) {
