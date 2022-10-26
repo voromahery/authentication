@@ -1,3 +1,38 @@
+@font-face {
+  font-family: "MyNotoSans";
+  src: local("Noto Sans Regular"), local("Noto_Sans_Regular"),
+    local("noto-sans-regular");
+  src: url("./fonts/noto-sans-regular.woff2");
+  src: url("./fonts/noto-sans-regular.woff");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "MyNotoSans";
+  src: local("Noto Sans Medium"), local("Noto_Sans_Medium"),
+    local("noto-sans-medium");
+  src: url("./fonts/noto-sans-medium.woff2");
+  src: url("./fonts/noto-sans-medium.woff");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "MyNotoSans";
+  src: local("Noto Sans Semi Bold"), local("Noto_Sans_Semi_Bold"),
+    local("noto-sans-semi-bold");
+  src: url("./fonts/noto-sans-semi-bold.woff2");
+  src: url("./fonts/noto-sans-semi-bold.woff");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "MyNotoSans";
+  src: local("Noto Sans Bold"), local("Noto_Sans_Bold"), local("noto-sans-bold");
+  src: url("./fonts/noto-sans-bold.woff2");
+  src: url("./fonts/noto-sans-bold.woff");
+  font-weight: 700;
+}
+
 html {
   box-sizing: border-box;
   font-size: 16px;
@@ -31,8 +66,9 @@ ul {
 }
 
 body {
-  & * {
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  * {
+    font-family: "MyNotoSans", -apple-system, BlinkMacSystemFont,
+      "Helvetica Neue", sans-serif;
   }
 
   ul {
