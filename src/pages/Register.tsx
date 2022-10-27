@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { LOGIN } from "../utils/paths";
 import { Context } from "../global-context";
 import Form from "../components/form";
+import { registerWithEmailAndPassword } from "../firebase";
 
 const Register = () => {
-  const { email, password, registerWithEmailAndPassword }: any =
+  const { email, password }: any =
     useContext(Context);
 
   const register = (e: any) => {
