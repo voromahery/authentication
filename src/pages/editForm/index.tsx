@@ -30,6 +30,8 @@ const Editform = () => {
     setNewPassword,
     setMessage,
     uploadImage,
+    imagePreview,
+    setImagePreview,
   }: any = useContext(Context);
 
   const { name, image, id, email, bio, phone } = currentUser;
@@ -134,7 +136,7 @@ const Editform = () => {
         <div className="wrapper">
           <label htmlFor="avatar" className="image-wrapper">
             <img
-              src={image ? newImage || image : userIcon}
+              src={imagePreview ? imagePreview : image ? image : userIcon}
               alt={`${name} avatar`}
               className={`image-to-change ${!image ? "no-image" : ""}`}
             />

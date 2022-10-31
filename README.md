@@ -13,12 +13,11 @@
 ## Table of Contents
 
 - [Overview](#overview)
-
+- [Acknowledgements](#acknowledgements)
 - [Built With](#built-with)
 - [Features](#features)
 - [How to use](#how-to-use)
 - [Contact](#contact)
-- [Acknowledgements](#acknowledgements)
 
 <!-- OVERVIEW -->
 

@@ -40,6 +40,8 @@ type AuthStates = {
   newPassword: string;
   setNewPassword: React.Dispatch<string>;
   percent: number;
+  imagePreview: string;
+  setImagePreview: React.Dispatch<string>;
   setPercent: React.Dispatch<number>;
   uploadImage: React.Dispatch<any>;
 };
@@ -69,6 +71,7 @@ const GlobalContext = (props: any) => {
   const [newEmail, setNewEmail] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [percent, setPercent] = useState<number>(0);
+  const [imagePreview, setImagePreview] = useState<string>("");
   const [user, loading]: any = useAuthState(auth);
 
   const userData = {
@@ -79,7 +82,9 @@ const GlobalContext = (props: any) => {
   };
 
   const uploadImage = (event: any) => {
-    setFile(event.target.files[0]);
+    const file = event.target.files[0];
+    setFile(file);
+    setImagePreview(URL.createObjectURL(file));
   };
 
   const updateAvatar = () => {
@@ -160,6 +165,8 @@ const GlobalContext = (props: any) => {
         newPassword,
         setNewPassword,
         percent,
+        imagePreview,
+        setImagePreview,
         setPercent,
         uploadImage,
       }}
